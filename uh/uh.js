@@ -1,6 +1,10 @@
 var app = require("express")();
 var mysql = require("mysql");
-var http = require("http").Server(app);
+var    server_handler = function (req, res) {
+       // res.writeHead(404);
+        //res.end();
+    };
+var http = require("http").Server(server_handler);
 var io = require("socket.io")(http);
 var async = require("async");
 
