@@ -166,7 +166,7 @@ io.sockets.on('connection', function (client) {
     client.emit('turnservers', credentials);
 });
 
-if (config.uid) process.setuid(config.uid);
+if (config.uid) process.setuid(config.uid); 
 
 var httpUrl;
 if (config.server.secure) {
