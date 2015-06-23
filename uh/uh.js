@@ -1,9 +1,9 @@
 var app = require("express")();
 var mysql = require("mysql");
-var    server_handler = function (req, res) {
-       // res.writeHead(404);
-        //res.end();
-    };
+var server_handler = function(req, res) {
+    // res.writeHead(404);
+    //res.end();
+};
 var http = require("http").Server(server_handler);
 var io = require("socket.io")(http);
 var async = require("async");
@@ -42,8 +42,8 @@ io.on('connection', function(socket) {
             allUsersId = userList;
             socket.emit("login_success", userBag);
             async.each(cons, function(user) {
-                if(user!==allusers[session_name]){
-                user.emit("user_in", mi);
+                if (user !== allusers[session_name]) {
+                    user.emit("user_in", mi);
                 }
             }, function(err) {
             });
@@ -67,19 +67,19 @@ io.on('connection', function(socket) {
         userList = Object.keys(allusers);
         console.log(session_name + " jst came on");
         allUsersId = userList;
-        
+
         socket.emit("login_success", userBag);
         console.log(session_name + " jus resumed");
         async.each(cons, function(user) {
-               if(user!==allusers[session_name]){
-            user.emit("user_in", mi);
-                }   
+            if (user !== allusers[session_name]) {
+                user.emit("user_in", mi);
+            }
 //                user.emit("user_in", mi);
         }, function(err) {
         });
     });
 
-    socket.on("call_finished", function(data) {        
+    socket.on("call_finished", function(data) {
         socket.emit("login_success", userBag);
         console.log(session_name + " finished a call");
 //        async.each(cons, function(user) {
@@ -123,7 +123,7 @@ io.on('connection', function(socket) {
 //            rcvr.emit("incomingAudio",Qaudio);
         }
     });
-    
+
     socket.on("video_accept", function(user) {
         console.log("vid call accepted");
         rcvr = userExist(user);
@@ -154,10 +154,10 @@ io.on('connection', function(socket) {
         if (rcvr === false) {
             socket.emit("callFailed", {val: "Sorry User's not reachable"});
         } else {
-            rcvr.emit("audio_call_rejected", session_name); 
-    
-         socket.emit("login_success", userBag);
-        console.log(session_name + " finished a call");
+            rcvr.emit("audio_call_rejected", session_name);
+
+            socket.emit("login_success", userBag);
+            console.log(session_name + " finished a call");
         }
 //to=user;
 
@@ -178,7 +178,7 @@ io.on('connection', function(socket) {
 
 //        console.log(note);
     });
-        socket.on("videoCall", function(who) {
+    socket.on("videoCall", function(who) {
         Qvideo = {
             from: session_name
         };
@@ -318,6 +318,7 @@ function userExist(k) {
 
 }
 
-http.listen(8000, function() {
-    console.log("QtAlk on: 8832");
-});
+http.listen(8000);
+//http.listen(8000, function() {
+//    console.log("QtAlk on: 8832");
+//});
